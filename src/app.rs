@@ -32,7 +32,12 @@ impl eframe::App for App {
         });
         // =============
         egui::CentralPanel::default().show(ctx, |ui| {
-            crate::ui::tabs::home(ui, &mut self.current_tab, &mut self.dark_mode, ctx);
+            crate::ui::tabs::home(crate::ui::home::Home {
+                ui,
+                current_tab: &mut self.current_tab,
+                dark_mode: &mut self.dark_mode,
+                ctx
+            });
         });
     }
 }

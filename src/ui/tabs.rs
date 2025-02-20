@@ -1,19 +1,27 @@
-use eframe::{self, egui};
+use eframe::egui;
+use crate::app::Tabs;
+use crate::ui::home::Home;
 
-pub fn home(ui: &mut eframe::egui::Ui, current_tab: &mut crate::app::Tabs, dark_mode: &mut bool, ctx: &egui::Context) {
+pub fn home(args: Home) {
+    let Home {
+        ui,
+        current_tab,
+        dark_mode,
+        ctx
+    } = args;
+
     match current_tab {
-        crate::app::Tabs::Home => {
+        Tabs::Home => {
             ui.heading("Home");
         },
-        crate::app::Tabs::Settings => {
-            ui.heading("Settings");
-            if ui.button("toggle theme").clicked() {
+        Tabs::Settings => {
+            if ui.button("Toggle theme").clicked() {
                 *dark_mode = !*dark_mode;
                 ctx.set_visuals(if *dark_mode {
-                    egui::Visuals::dark()
-                } else {
                     egui::Visuals::light()
-                });        
+                } else {
+                    egui::Visuals::dark()
+                });
             }
         }
     }
